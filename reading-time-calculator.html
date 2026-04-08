@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Tempo de Leitura — Estime o Tempo de Leitura | ToolFlow</title>
+  <meta name="description" content="Calcule quanto tempo leva para ler seu artigo ou post de blog. Estimador de tempo de leitura gratuito para escritores e criadores de conteúdo.">
+  <link rel="canonical" href="https://ferramentasgratuitas.com/tools/seo/reading-time-calculator.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'><rect width='28' height='28' rx='6' fill='%232563eb'/><path d='M8 9h12M8 14h8M8 19h10' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="header"></div>
+
+  <section class="tool-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="/index.html">Início</a><span class="sep">/</span><a href="/categories/seo-tools.html">Ferramentas SEO</a><span class="sep">/</span>Calculadora de Tempo de Leitura</div>
+      <h1>Calculadora de Tempo de Leitura</h1>
+      <p class="tool-description">Estime quanto tempo leva para ler seu post de blog, artigo ou qualquer conteúdo de texto. Baseado na velocidade média de leitura de adultos.</p>
+      <span class="trust-badge">🔒 Seu conteúdo permanece no seu navegador</span>
+    </div>
+  </section>
+
+  <section class="tool-main">
+    <div class="container">
+      <div class="tool-interface">
+        <div class="io-zone">
+          <label>Cole seu conteúdo</label>
+          <textarea id="rtInput" placeholder="Cole seu artigo, post de blog ou qualquer texto aqui..." style="min-height:220px"></textarea>
+        </div>
+        <div class="mt-3">
+          <label style="font-size:0.85rem;font-weight:600;color:var(--color-text-secondary)">Velocidade de Leitura (palavras por minuto)</label>
+          <div style="display:flex;align-items:center;gap:1rem;margin-top:0.5rem">
+            <input type="range" id="wpmSlider" min="100" max="400" value="238" style="max-width:300px">
+            <span id="wpmValue" style="font-weight:700;min-width:60px">238 ppm</span>
+          </div>
+        </div>
+        <div class="stats-row mt-3">
+          <div class="stat-item"><div class="stat-value" id="readTime">0 min</div><div class="stat-label">Tempo de Leitura</div></div>
+          <div class="stat-item"><div class="stat-value" id="wordCount">0</div><div class="stat-label">Palavras</div></div>
+          <div class="stat-item"><div class="stat-value" id="charCount">0</div><div class="stat-label">Caracteres</div></div>
+          <div class="stat-item"><div class="stat-value" id="sentCount">0</div><div class="stat-label">Frases</div></div>
+        </div>
+        <div class="action-bar">
+          <div class="btn-group">
+            <button class="btn btn-primary" onclick="calculate()">Calcular</button>
+            <button class="btn btn-secondary" onclick="copyToClipboard(document.getElementById('readTime').textContent + ' de leitura · ' + document.getElementById('wordCount').textContent + ' palavras')">📋 Copiar Resultado</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('rtInput').value='';calculate()">Limpar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-sm">
+        <h2>Como Funciona</h2>
+        <p class="mt-2">O adulto médio lê aproximadamente 238 palavras por minuto (ppm). Esta calculadora conta as palavras do seu texto e divide pela velocidade de leitura escolhida. Você pode ajustar o controle deslizante para diferentes tipos de público — conteúdo técnico pode usar 200 ppm, enquanto leitura casual fica em torno de 250+ ppm.</p>
+      </div>
+
+      <div class="section-sm">
+        <div class="faq-list">
+          <h2 class="mb-3">FAQ</h2>
+          <div class="faq-item"><button class="faq-question">Qual é a velocidade média de leitura?<span class="faq-icon">+</span></button><div class="faq-answer">A velocidade média de leitura de adultos é de cerca de 238 palavras por minuto para conteúdo não-ficcional. Isso pode variar com base na complexidade do conteúdo, familiaridade com o tema e nível de habilidade do leitor.</div></div>
+          <div class="faq-item"><button class="faq-question">Por que mostrar tempo de leitura nos posts?<span class="faq-icon">+</span></button><div class="faq-answer">Exibir o tempo estimado de leitura define expectativas para o leitor, aumenta o engajamento e pode melhorar a experiência do usuário. Plataformas como o Medium popularizaram esse recurso, e foi demonstrado que ele aumenta a taxa de conclusão de artigos.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="related-tools section-alt">
+    <div class="container">
+      <h2>Ferramentas Relacionadas</h2>
+      <div class="grid-3 mt-3">
+        <a href="slug-generator.html" class="card tool-card"><div class="tool-icon icon-seo">🔗</div><h3>Gerador de Slug</h3><p>Crie slugs de URL otimizados para SEO.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/text/word-counter.html" class="card tool-card"><div class="tool-icon icon-text">📝</div><h3>Contador de Palavras</h3><p>Estatísticas detalhadas de palavras e caracteres.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/text/case-converter.html" class="card tool-card"><div class="tool-icon icon-text">Aa</div><h3>Conversor de Caixa</h3><p>Transforme a capitalização do texto.</p><span class="card-arrow">Usar ferramenta →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    document.getElementById('header').innerHTML = renderHeader('');
+    document.getElementById('footer').innerHTML = renderFooter('');
+    initMobileMenu();
+    initHeaderScroll();
+
+    const wpmSlider = document.getElementById('wpmSlider');
+    wpmSlider.addEventListener('input', () => {
+      document.getElementById('wpmValue').textContent = wpmSlider.value + ' ppm';
+      calculate();
+    });
+
+    function calculate() {
+      const text = document.getElementById('rtInput').value.trim();
+      if (!text) {
+        document.getElementById('readTime').textContent = '0 min';
+        document.getElementById('wordCount').textContent = '0';
+        document.getElementById('charCount').textContent = '0';
+        document.getElementById('sentCount').textContent = '0';
+        return;
+      }
+      const words = text.split(/\s+/).filter(w => w.length > 0);
+      const wpm = parseInt(wpmSlider.value);
+      const minutes = words.length / wpm;
+      let timeStr;
+      if (minutes < 1) timeStr = '< 1 min';
+      else if (minutes < 60) timeStr = Math.ceil(minutes) + ' min';
+      else timeStr = Math.floor(minutes/60) + ' h ' + Math.ceil(minutes%60) + ' min';
+      document.getElementById('readTime').textContent = timeStr;
+      document.getElementById('wordCount').textContent = words.length.toLocaleString();
+      document.getElementById('charCount').textContent = text.length.toLocaleString();
+      const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+      document.getElementById('sentCount').textContent = sentences.length.toLocaleString();
+    }
+
+    document.getElementById('rtInput').addEventListener('input', debounce(calculate, 200));
+  </script>
+</body>
+</html>

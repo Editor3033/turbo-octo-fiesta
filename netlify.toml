@@ -1,0 +1,124 @@
+# ToolFlow — Netlify Configuration
+
+[build]
+  publish = "."
+
+# Headers for performance and security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Redirects for clean URLs
+[[redirects]]
+  from = "/slug-generator"
+  to = "/tools/seo/slug-generator.html"
+  status = 200
+
+[[redirects]]
+  from = "/word-counter"
+  to = "/tools/text/word-counter.html"
+  status = 200
+
+[[redirects]]
+  from = "/reading-time-calculator"
+  to = "/tools/seo/reading-time-calculator.html"
+  status = 200
+
+[[redirects]]
+  from = "/case-converter"
+  to = "/tools/text/case-converter.html"
+  status = 200
+
+[[redirects]]
+  from = "/json-formatter"
+  to = "/tools/developer/json-formatter.html"
+  status = 200
+
+[[redirects]]
+  from = "/json-minifier"
+  to = "/tools/developer/json-minifier.html"
+  status = 200
+
+[[redirects]]
+  from = "/timestamp-converter"
+  to = "/tools/converters/timestamp-converter.html"
+  status = 200
+
+[[redirects]]
+  from = "/base64-converter"
+  to = "/tools/converters/base64-converter.html"
+  status = 200
+
+[[redirects]]
+  from = "/email-extractor"
+  to = "/tools/developer/email-extractor.html"
+  status = 200
+
+[[redirects]]
+  from = "/qr-code-generator"
+  to = "/tools/generators/qr-code-generator.html"
+  status = 200
+
+[[redirects]]
+  from = "/jpeg-compressor"
+  to = "/tools/image/jpeg-compressor.html"
+  status = 200
+
+[[redirects]]
+  from = "/color-palette-generator"
+  to = "/tools/generators/color-palette-generator.html"
+  status = 200
+
+[[redirects]]
+  from = "/seo-tools"
+  to = "/categories/seo-tools.html"
+  status = 200
+
+[[redirects]]
+  from = "/text-tools"
+  to = "/categories/text-tools.html"
+  status = 200
+
+[[redirects]]
+  from = "/developer-tools"
+  to = "/categories/developer-tools.html"
+  status = 200
+
+[[redirects]]
+  from = "/image-tools"
+  to = "/categories/image-tools.html"
+  status = 200
+
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/terms"
+  to = "/terms.html"
+  status = 200

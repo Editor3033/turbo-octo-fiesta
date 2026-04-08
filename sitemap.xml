@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://ferramentasgratuitas.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://ferramentasgratuitas.com/about.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ferramentasgratuitas.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://ferramentasgratuitas.com/terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+
+  <!-- Categories -->
+  <url><loc>https://ferramentasgratuitas.com/categories/seo-tools.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ferramentasgratuitas.com/categories/text-tools.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ferramentasgratuitas.com/categories/developer-tools.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ferramentasgratuitas.com/categories/image-tools.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ferramentasgratuitas.com/categories/generators-tools.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ferramentasgratuitas.com/categories/converter-tools.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- SEO Tools -->
+  <url><loc>https://ferramentasgratuitas.com/tools/seo/slug-generator.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ferramentasgratuitas.com/tools/seo/reading-time-calculator.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+
+  <!-- Text Tools -->
+  <url><loc>https://ferramentasgratuitas.com/tools/text/word-counter.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ferramentasgratuitas.com/tools/text/case-converter.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+
+  <!-- Developer Tools -->
+  <url><loc>https://ferramentasgratuitas.com/tools/developer/json-formatter.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ferramentasgratuitas.com/tools/developer/json-minifier.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ferramentasgratuitas.com/tools/developer/email-extractor.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+
+  <!-- Converters -->
+  <url><loc>https://ferramentasgratuitas.com/tools/converters/timestamp-converter.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ferramentasgratuitas.com/tools/converters/base64-converter.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+
+  <!-- Generators -->
+  <url><loc>https://ferramentasgratuitas.com/tools/generators/qr-code-generator.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ferramentasgratuitas.com/tools/generators/color-palette-generator.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+
+  <!-- Image Tools -->
+  <url><loc>https://ferramentasgratuitas.com/tools/image/jpeg-compressor.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+</urlset>

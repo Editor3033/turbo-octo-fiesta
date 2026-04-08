@@ -1,0 +1,6 @@
+# ToolFlow — robots.txt
+
+User-agent: *
+Allow: /
+
+Sitemap: https://ferramentasgratuitas.com/sitemap.xml

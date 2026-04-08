@@ -1,0 +1,21 @@
+# ToolFlow — Clean URL Redirects for Netlify
+
+/slug-generator          /tools/seo/slug-generator.html          200
+/word-counter            /tools/text/word-counter.html            200
+/reading-time-calculator /tools/seo/reading-time-calculator.html  200
+/case-converter          /tools/text/case-converter.html          200
+/json-formatter          /tools/developer/json-formatter.html     200
+/json-minifier           /tools/developer/json-minifier.html      200
+/timestamp-converter     /tools/converters/timestamp-converter.html 200
+/base64-converter        /tools/converters/base64-converter.html  200
+/email-extractor         /tools/developer/email-extractor.html    200
+/qr-code-generator       /tools/generators/qr-code-generator.html 200
+/jpeg-compressor         /tools/image/jpeg-compressor.html        200
+/color-palette-generator /tools/generators/color-palette-generator.html 200
+/seo-tools               /categories/seo-tools.html               200
+/text-tools              /categories/text-tools.html              200
+/developer-tools         /categories/developer-tools.html         200
+/image-tools             /categories/image-tools.html             200
+/about                   /about.html                              200
+/privacy                 /privacy.html                            200
+/terms                   /terms.html                              200

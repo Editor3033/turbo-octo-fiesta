@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre o ToolFlow — Ferramentas Online Rápidas e Gratuitas</title>
+  <meta name="description" content="Saiba mais sobre o ToolFlow — uma coleção de ferramentas online rápidas, gratuitas e com privacidade para criadores de conteúdo, desenvolvedores e trabalho digital do dia a dia.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'><rect width='28' height='28' rx='6' fill='%232563eb'/><path d='M8 9h12M8 14h8M8 19h10' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="header"></div>
+
+  <section class="tool-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Início</a><span class="sep">/</span>Sobre</div>
+      <h1>Sobre o ToolFlow</h1>
+      <p class="tool-description">Ferramentas online rápidas e gratuitas para criadores de conteúdo, profissionais de SEO, desenvolvedores e trabalho digital do dia a dia.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width:720px">
+      <h2>Nossa Missão</h2>
+      <p class="mt-2">O ToolFlow foi construído com uma crença simples: ferramentas digitais do dia a dia devem ser <strong>rápidas, gratuitas e privadas</strong>. Muitos sites de ferramentas são cheios de anúncios, exigem cadastro ou enviam seus dados secretamente para servidores. Nós fazemos diferente.</p>
+      <p class="mt-2">Todas as ferramentas do ToolFlow rodam <strong>inteiramente no seu navegador</strong>. Seus textos, imagens e dados nunca saem do seu dispositivo. Não há rastreamento, sem contas e sem custos ocultos.</p>
+
+      <h2 class="mt-4">O Que Oferecemos</h2>
+      <p class="mt-2">Oferecemos uma coleção cuidadosamente selecionada de ferramentas organizadas em categorias claras:</p>
+      <ul style="margin-top:1rem;padding-left:1.5rem;color:var(--color-text-secondary);line-height:2">
+        <li><strong>Ferramentas SEO</strong> — Gerador de slug, calculadora de tempo de leitura</li>
+        <li><strong>Ferramentas de Texto</strong> — Contador de palavras, conversor de caixa</li>
+        <li><strong>Ferramentas para Desenvolvedores</strong> — Formatador JSON, minificador, extrator de e-mails</li>
+        <li><strong>Ferramentas de Imagem</strong> — Compressor JPEG</li>
+        <li><strong>Geradores</strong> — QR codes, paletas de cores</li>
+        <li><strong>Conversores</strong> — Timestamps, codificação Base64</li>
+      </ul>
+
+      <h2 class="mt-4">Nossos Valores</h2>
+      <div class="grid-2 mt-2">
+        <div class="card">
+          <h4>⚡ Velocidade</h4>
+          <p class="mt-1">Cada ferramenta carrega instantaneamente e produz resultados em milissegundos. Sem telas de carregamento, sem espera.</p>
+        </div>
+        <div class="card">
+          <h4>🔒 Privacidade</h4>
+          <p class="mt-1">Todo o processamento acontece localmente no seu navegador. Nós nunca vemos, armazenamos ou transmitimos seus dados.</p>
+        </div>
+        <div class="card">
+          <h4>🎯 Simplicidade</h4>
+          <p class="mt-1">Interfaces limpas e focadas. Cada ferramenta faz uma coisa e faz bem feito. Sem bagunça, sem distrações.</p>
+        </div>
+        <div class="card">
+          <h4>🆓 Grátis para Sempre</h4>
+          <p class="mt-1">Todas as ferramentas são completamente gratuitas, sem limites, sem cobranças ocultas e sem planos premium. Use o quanto precisar.</p>
+        </div>
+      </div>
+
+      <h2 class="mt-4">Contato</h2>
+      <p class="mt-2">Tem feedback, sugestões ou quer relatar um problema? Adoraríamos ouvir você. Entre em contato conosco em <a href="mailto:hello@toolflow.com">hello@toolflow.com</a>.</p>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    document.getElementById('header').innerHTML = renderHeader('');
+    document.getElementById('footer').innerHTML = renderFooter('');
+    initMobileMenu();
+    initHeaderScroll();
+  </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contador de Palavras — Conte Palavras, Caracteres e Frases | ToolFlow</title>
+  <meta name="description" content="Ferramenta online gratuita de contagem de palavras. Conte palavras, caracteres, frases, parágrafos e tempo estimado de leitura instantaneamente.">
+  <link rel="canonical" href="https://ferramentasgratuitas.com/tools/text/word-counter.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'><rect width='28' height='28' rx='6' fill='%232563eb'/><path d='M8 9h12M8 14h8M8 19h10' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="header"></div>
+
+  <section class="tool-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="/index.html">Início</a><span class="sep">/</span><a href="/categories/text-tools.html">Ferramentas de Texto</a><span class="sep">/</span>Contador de Palavras</div>
+      <h1>Contador de Palavras</h1>
+      <p class="tool-description">Conte palavras, caracteres, frases e parágrafos no seu texto. Obtenha estatísticas instantâneas enquanto digita.</p>
+      <span class="trust-badge">🔒 Seu texto nunca sai do seu navegador</span>
+    </div>
+  </section>
+
+  <section class="tool-main">
+    <div class="container">
+      <div class="tool-interface">
+        <div class="io-zone">
+          <label>Digite ou cole seu texto</label>
+          <textarea id="wcInput" placeholder="Comece a digitar ou cole seu texto aqui..." style="min-height:250px"></textarea>
+        </div>
+        <div class="stats-row mt-3">
+          <div class="stat-item"><div class="stat-value" id="wWords">0</div><div class="stat-label">Palavras</div></div>
+          <div class="stat-item"><div class="stat-value" id="wChars">0</div><div class="stat-label">Caracteres</div></div>
+          <div class="stat-item"><div class="stat-value" id="wCharsNoSpace">0</div><div class="stat-label">Caract. (sem espaços)</div></div>
+          <div class="stat-item"><div class="stat-value" id="wSentences">0</div><div class="stat-label">Frases</div></div>
+          <div class="stat-item"><div class="stat-value" id="wParagraphs">0</div><div class="stat-label">Parágrafos</div></div>
+          <div class="stat-item"><div class="stat-value" id="wReadTime">0 min</div><div class="stat-label">Tempo de Leitura</div></div>
+        </div>
+        <div class="action-bar">
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="copyToClipboard(getStatsSummary())">📋 Copiar Estatísticas</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('wcInput').value='';countWords()">Limpar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-sm">
+        <div class="faq-list">
+          <h2 class="mb-3">FAQ</h2>
+          <div class="faq-item"><button class="faq-question">Como as palavras são contadas?<span class="faq-icon">+</span></button><div class="faq-answer">As palavras são contadas dividindo o texto por caracteres de espaço em branco (espaços, tabulações, quebras de linha). Espaços consecutivos são tratados como um único separador. Strings vazias entre separadores não são contadas.</div></div>
+          <div class="faq-item"><button class="faq-question">O que conta como uma frase?<span class="faq-icon">+</span></button><div class="faq-answer">As frases são detectadas procurando pontos (.), pontos de exclamação (!) e pontos de interrogação (?). Abreviações e números decimais podem causar pequenas variações na contagem.</div></div>
+          <div class="faq-item"><button class="faq-question">Como o tempo de leitura é calculado?<span class="faq-icon">+</span></button><div class="faq-answer">O tempo de leitura é estimado usando a velocidade média de leitura de adultos de 238 palavras por minuto. Este é um padrão amplamente utilizado em publicações e plataformas de conteúdo.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="related-tools section-alt">
+    <div class="container">
+      <h2>Ferramentas Relacionadas</h2>
+      <div class="grid-3 mt-3">
+        <a href="case-converter.html" class="card tool-card"><div class="tool-icon icon-text">Aa</div><h3>Conversor de Caixa</h3><p>Altere a capitalização do texto instantaneamente.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/seo/reading-time-calculator.html" class="card tool-card"><div class="tool-icon icon-seo">⏱️</div><h3>Calculadora de Tempo de Leitura</h3><p>Estimativas detalhadas de tempo de leitura.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/seo/slug-generator.html" class="card tool-card"><div class="tool-icon icon-seo">🔗</div><h3>Gerador de Slug</h3><p>Slugs de URL otimizados para SEO.</p><span class="card-arrow">Usar ferramenta →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    document.getElementById('header').innerHTML = renderHeader('');
+    document.getElementById('footer').innerHTML = renderFooter('');
+    initMobileMenu();
+    initHeaderScroll();
+
+    function countWords() {
+      const text = document.getElementById('wcInput').value;
+      const trimmed = text.trim();
+      const words = trimmed ? trimmed.split(/\s+/).length : 0;
+      const chars = text.length;
+      const charsNoSpace = text.replace(/\s/g, '').length;
+      const sentences = trimmed ? trimmed.split(/[.!?]+/).filter(s => s.trim()).length : 0;
+      const paragraphs = trimmed ? trimmed.split(/\n\s*\n/).filter(p => p.trim()).length : 0;
+      const readMin = words > 0 ? Math.ceil(words / 238) : 0;
+      document.getElementById('wWords').textContent = words.toLocaleString();
+      document.getElementById('wChars').textContent = chars.toLocaleString();
+      document.getElementById('wCharsNoSpace').textContent = charsNoSpace.toLocaleString();
+      document.getElementById('wSentences').textContent = sentences.toLocaleString();
+      document.getElementById('wParagraphs').textContent = Math.max(paragraphs, trimmed ? 1 : 0).toLocaleString();
+      document.getElementById('wReadTime').textContent = readMin < 1 && words > 0 ? '< 1 min' : readMin + ' min';
+    }
+
+    function getStatsSummary() {
+      return `Palavras: ${document.getElementById('wWords').textContent}, Caracteres: ${document.getElementById('wChars').textContent}, Frases: ${document.getElementById('wSentences').textContent}, Tempo de Leitura: ${document.getElementById('wReadTime').textContent}`;
+    }
+
+    document.getElementById('wcInput').addEventListener('input', countWords);
+  </script>
+</body>
+</html>

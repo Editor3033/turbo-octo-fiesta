@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de QR Code — Crie QR Codes Grátis | ToolFlow</title>
+  <meta name="description" content="Gere QR codes para URLs, texto, WiFi ou qualquer dado. Baixe como PNG. Gerador de QR code online gratuito.">
+  <link rel="canonical" href="https://ferramentasgratuitas.com/tools/generators/qr-code-generator.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'><rect width='28' height='28' rx='6' fill='%232563eb'/><path d='M8 9h12M8 14h8M8 19h10' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+</head>
+<body>
+  <div id="header"></div>
+
+  <section class="tool-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="/index.html">Início</a><span class="sep">/</span><a href="/categories/generators-tools.html">Geradores</a><span class="sep">/</span>Gerador de QR Code</div>
+      <h1>Gerador de QR Code</h1>
+      <p class="tool-description">Gere QR codes para URLs, texto, credenciais WiFi ou qualquer dado. Baixe como imagem PNG.</p>
+      <span class="trust-badge">🔒 Gerado inteiramente no seu navegador</span>
+    </div>
+  </section>
+
+  <section class="tool-main">
+    <div class="container">
+      <div class="tool-interface">
+        <div style="display:flex;gap:2rem;flex-wrap:wrap">
+          <div style="flex:1;min-width:300px">
+            <div class="io-zone">
+              <label>Conteúdo</label>
+              <textarea id="qrInput" placeholder="Digite URL, texto ou qualquer dado..." style="min-height:100px">https://ferramentasgratuitas.com</textarea>
+            </div>
+            <div class="mt-2" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+              <div>
+                <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--color-text-secondary);margin-bottom:0.5rem">Tamanho (px)</label>
+                <select id="qrSize">
+                  <option value="200">200 × 200</option>
+                  <option value="300" selected>300 × 300</option>
+                  <option value="400">400 × 400</option>
+                  <option value="500">500 × 500</option>
+                  <option value="800">800 × 800</option>
+                </select>
+              </div>
+              <div>
+                <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--color-text-secondary);margin-bottom:0.5rem">Correção de Erro</label>
+                <select id="qrEC">
+                  <option value="L">Baixa (7%)</option>
+                  <option value="M" selected>Média (15%)</option>
+                  <option value="Q">Quartil (25%)</option>
+                  <option value="H">Alta (30%)</option>
+                </select>
+              </div>
+              <div>
+                <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--color-text-secondary);margin-bottom:0.5rem">Cor do Primeiro Plano</label>
+                <input type="color" id="qrFg" value="#000000" style="width:100%;height:38px;border:1px solid var(--color-border);border-radius:var(--radius-sm);cursor:pointer">
+              </div>
+              <div>
+                <label style="display:block;font-size:0.8rem;font-weight:600;color:var(--color-text-secondary);margin-bottom:0.5rem">Cor de Fundo</label>
+                <input type="color" id="qrBg" value="#ffffff" style="width:100%;height:38px;border:1px solid var(--color-border);border-radius:var(--radius-sm);cursor:pointer">
+              </div>
+            </div>
+            <div class="mt-2">
+              <button class="btn btn-primary btn-lg" onclick="generateQR()" style="width:100%">Gerar QR Code</button>
+            </div>
+          </div>
+          <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:1rem">
+            <div id="qrPreview" style="background:#f9fafb;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:1.5rem;min-width:250px;min-height:250px;display:flex;align-items:center;justify-content:center">
+              <canvas id="qrCanvas"></canvas>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-secondary" onclick="downloadQR()">⬇ Baixar PNG</button>
+              <button class="btn btn-secondary" onclick="copyQRImage()">📋 Copiar Imagem</button>
+            </div>
+          </div>
+        </div>
+        <div class="examples-section">
+          <h4>Modelos rápidos:</h4>
+          <div class="example-chips">
+            <span class="example-chip" data-value="https://exemplo.com">🌐 URL</span>
+            <span class="example-chip" data-value="Olá do ToolFlow!">📝 Texto</span>
+            <span class="example-chip" data-value="WIFI:T:WPA;S:MinhaRede;P:MinhaSenha;;">📶 WiFi</span>
+            <span class="example-chip" data-value="mailto:ola@toolflow.com">📧 E-mail</span>
+            <span class="example-chip" data-value="tel:+5511999999999">📞 Telefone</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-sm">
+        <div class="faq-list">
+          <h2 class="mb-3">FAQ</h2>
+          <div class="faq-item"><button class="faq-question">O que posso codificar em um QR code?<span class="faq-icon">+</span></button><div class="faq-answer">Você pode codificar URLs, texto simples, credenciais WiFi, endereços de e-mail, números de telefone, mensagens SMS, contatos vCard e muito mais. QR codes podem armazenar até ~4.296 caracteres alfanuméricos.</div></div>
+          <div class="faq-item"><button class="faq-question">O que é correção de erro?<span class="faq-icon">+</span></button><div class="faq-answer">A correção de erro permite que QR codes sejam lidos mesmo se parcialmente danificados ou obstruidos. Níveis mais altos (Q, H) tornam o código mais robusto, mas também ligeiramente maior. Média (M) é um bom padrão para a maioria dos usos.</div></div>
+          <div class="faq-item"><button class="faq-question">Posso personalizar as cores?<span class="faq-icon">+</span></button><div class="faq-answer">Sim! Use os seletores de cor para alterar as cores do primeiro plano e do fundo. Certifique-se de que haja contraste suficiente entre elas para uma leitura confiável.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="related-tools section-alt">
+    <div class="container">
+      <h2>Ferramentas Relacionadas</h2>
+      <div class="grid-3 mt-3">
+        <a href="color-palette-generator.html" class="card tool-card"><div class="tool-icon icon-generator">🎨</div><h3>Gerador de Paleta de Cores</h3><p>Crie paletas de cores bonitas.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/image/jpeg-compressor.html" class="card tool-card"><div class="tool-icon icon-image">🖼️</div><h3>Compressor JPEG</h3><p>Comprima imagens no navegador.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/converters/base64-converter.html" class="card tool-card"><div class="tool-icon icon-converter">🔐</div><h3>Conversor Base64</h3><p>Codifique/decodifique Base64.</p><span class="card-arrow">Usar ferramenta →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    document.getElementById('header').innerHTML = renderHeader('');
+    document.getElementById('footer').innerHTML = renderFooter('');
+    initMobileMenu();
+    initHeaderScroll();
+
+    // Chips de exemplo com data-value
+    document.querySelectorAll('.example-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.getElementById('qrInput').value = chip.dataset.value || chip.textContent;
+        generateQR();
+      });
+    });
+
+    function generateQR() {
+      const text = document.getElementById('qrInput').value.trim();
+      if (!text) { ToastManager.error('Digite algum conteúdo'); return; }
+      const size = parseInt(document.getElementById('qrSize').value);
+      const ec = document.getElementById('qrEC').value;
+      const fg = document.getElementById('qrFg').value;
+      const bg = document.getElementById('qrBg').value;
+      const canvas = document.getElementById('qrCanvas');
+      QRCode.toCanvas(canvas, text, {
+        width: size,
+        errorCorrectionLevel: ec,
+        color: { dark: fg, light: bg },
+        margin: 2
+      }, function(error) {
+        if (error) { ToastManager.error('Erro: ' + error.message); return; }
+        ToastManager.success('QR code gerado!');
+      });
+    }
+
+    function downloadQR() {
+      const canvas = document.getElementById('qrCanvas');
+      if (!canvas.width) { ToastManager.error('Gere um QR code primeiro'); return; }
+      canvas.toBlob(blob => { downloadBlobFile(blob, 'qr-code.png'); }, 'image/png');
+    }
+
+    async function copyQRImage() {
+      const canvas = document.getElementById('qrCanvas');
+      if (!canvas.width) { ToastManager.error('Gere um QR code primeiro'); return; }
+      try {
+        canvas.toBlob(async blob => {
+          await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
+          ToastManager.success('QR code copiado para a área de transferência!');
+        }, 'image/png');
+      } catch { ToastManager.error('Não foi possível copiar a imagem'); }
+    }
+
+    generateQR();
+  </script>
+</body>
+</html>

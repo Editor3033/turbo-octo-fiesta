@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formatador JSON — Embeleze JSON Online | ToolFlow</title>
+  <meta name="description" content="Formate e embeleze dados JSON bagunçados com indentação adequada. Formatador e validador JSON online gratuito.">
+  <link rel="canonical" href="https://ferramentasgratuitas.com/tools/developer/json-formatter.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/3_white%2C_blue_rounded_rectangle.svg/250px-3_white%2C_blue_rounded_rectangle.svg.png' viewBox='0 0 28 28'><rect width='28' height='28' rx='6' fill='%232563eb'/><path d='M8 9h12M8 14h8M8 19h10' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="header"></div>
+
+  <section class="tool-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="/index.html">Início</a><span class="sep">/</span><a href="/categories/developer-tools.html">Ferramentas para Desenvolvedores</a><span class="sep">/</span>Formatador JSON</div>
+      <h1>Formatador JSON</h1>
+      <p class="tool-description">Embeleze e formate dados JSON bagunçados com indentação adequada. Também valida seu JSON em busca de erros.</p>
+      <span class="trust-badge">⚡ Formatação instantânea, sem processamento no servidor</span>
+    </div>
+  </section>
+
+  <section class="tool-main">
+    <div class="container">
+      <div class="tool-interface">
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem">
+          <label style="font-size:0.85rem;font-weight:600;color:var(--color-text-secondary)">Indentação:</label>
+          <div class="tab-group">
+            <button class="tab-btn active" onclick="setIndent(2, this)">2 espaços</button>
+            <button class="tab-btn" onclick="setIndent(4, this)">4 espaços</button>
+            <button class="tab-btn" onclick="setIndent(1, this, true)">Tab</button>
+          </div>
+        </div>
+        <div class="io-grid">
+          <div class="io-zone">
+            <label>JSON de Entrada</label>
+            <textarea id="jsonInput" placeholder='Cole seu JSON aqui...' style="min-height:300px">{"name":"ToolFlow","version":"1.0","tools":[{"id":1,"name":"Formatador JSON","category":"desenvolvedor"},{"id":2,"name":"Gerador de Slug","category":"seo"}],"meta":{"free":true,"browser_based":true}}</textarea>
+          </div>
+          <div class="io-zone">
+            <label>Saída Formatada</label>
+            <div class="output-area" id="jsonOutput" style="min-height:300px"></div>
+          </div>
+        </div>
+        <div class="action-bar">
+          <div class="btn-group">
+            <button class="btn btn-primary" onclick="formatJSON()">Formatar JSON</button>
+            <button class="btn btn-secondary" onclick="copyToClipboard(document.getElementById('jsonOutput').textContent)">📋 Copiar</button>
+            <button class="btn btn-secondary" onclick="downloadFile(document.getElementById('jsonOutput').textContent, 'formatado.json', 'application/json')">⬇ Baixar</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('jsonInput').value='';document.getElementById('jsonOutput').textContent=''">Limpar</button>
+          </div>
+        </div>
+        <div class="examples-section">
+          <h4>Experimente um exemplo:</h4>
+          <div class="example-chips">
+            <span class="example-chip" data-value='{"usuarios":[{"nome":"Alice","idade":30,"email":"alice@exemplo.com"},{"nome":"Bruno","idade":25}],"total":2}'>Dados de usuários</span>
+            <span class="example-chip" data-value='{"config":{"tema":"escuro","idioma":"pt-BR","funcionalidades":{"auth":true,"api":true,"cache":false}},"versao":"2.1.0"}'>Objeto de configuração</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-sm">
+        <div class="faq-list">
+          <h2 class="mb-3">FAQ</h2>
+          <div class="faq-item"><button class="faq-question">Isso valida meu JSON?<span class="faq-icon">+</span></button><div class="faq-answer">Sim! Se seu JSON tiver erros de sintaxe, o formatador exibirá uma mensagem de erro clara mostrando o que deu errado e aproximadamente onde o erro está localizado.</div></div>
+          <div class="faq-item"><button class="faq-question">Meus dados JSON estão seguros?<span class="faq-icon">+</span></button><div class="faq-answer">Com certeza. Toda a formatação acontece no seu navegador usando JavaScript. Seus dados JSON nunca são enviados para nenhum servidor. Eles permanecem completamente privados no seu dispositivo.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="related-tools section-alt">
+    <div class="container">
+      <h2>Ferramentas Relacionadas</h2>
+      <div class="grid-3 mt-3">
+        <a href="json-minifier.html" class="card tool-card"><div class="tool-icon icon-dev">⚡</div><h3>Minificador JSON</h3><p>Comprima JSON removendo espaços em branco.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/converters/base64-converter.html" class="card tool-card"><div class="tool-icon icon-converter">🔐</div><h3>Conversor Base64</h3><p>Codifique/decodifique strings Base64.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="email-extractor.html" class="card tool-card"><div class="tool-icon icon-dev">📧</div><h3>Extrator de E-mails</h3><p>Extraia e-mails de dados de texto.</p><span class="card-arrow">Usar ferramenta →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    document.getElementById('header').innerHTML = renderHeader('');
+    document.getElementById('footer').innerHTML = renderFooter('');
+    initMobileMenu();
+    initHeaderScroll();
+
+    let indentSize = 2;
+    let useTab = false;
+
+    function setIndent(size, btn, tab = false) {
+      indentSize = size;
+      useTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      formatJSON();
+    }
+
+    // Chips de exemplo com data-value
+    document.querySelectorAll('.example-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const val = chip.dataset.value || chip.textContent;
+        document.getElementById('jsonInput').value = val;
+        formatJSON();
+      });
+    });
+
+    function formatJSON() {
+      const input = document.getElementById('jsonInput').value.trim();
+      const output = document.getElementById('jsonOutput');
+      if (!input) { output.textContent = ''; return; }
+      try {
+        const parsed = JSON.parse(input);
+        const indent = useTab ? '\t' : indentSize;
+        output.textContent = JSON.stringify(parsed, null, indent);
+        output.style.color = '';
+      } catch (e) {
+        output.textContent = '❌ Erro JSON: ' + e.message;
+        output.style.color = 'var(--color-error)';
+      }
+    }
+
+    formatJSON();
+  </script>
+</body>
+</html>

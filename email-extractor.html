@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extrator de E-mails — Extraia E-mails de Texto | ToolFlow</title>
+  <meta name="description" content="Extraia todos os endereços de e-mail de qualquer bloco de texto. Ferramenta online gratuita de extração de e-mails. Instantâneo, privado, no navegador.">
+  <link rel="canonical" href="https://ferramentasgratuitas.com/tools/developer/email-extractor.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'><rect width='28' height='28' rx='6' fill='%232563eb'/><path d='M8 9h12M8 14h8M8 19h10' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="header"></div>
+
+  <section class="tool-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="/index.html">Início</a><span class="sep">/</span><a href="/categories/developer-tools.html">Ferramentas para Desenvolvedores</a><span class="sep">/</span>Extrator de E-mails</div>
+      <h1>Extrator de E-mails</h1>
+      <p class="tool-description">Extraia todos os endereços de e-mail de qualquer bloco de texto. Suporta deduplicar e múltiplos formatos de saída.</p>
+      <span class="trust-badge">🔒 Seu conteúdo não é enviado para nenhum lugar</span>
+    </div>
+  </section>
+
+  <section class="tool-main">
+    <div class="container">
+      <div class="tool-interface">
+        <div class="io-grid">
+          <div class="io-zone">
+            <label>Cole seu texto</label>
+            <textarea id="emailInput" placeholder="Cole qualquer texto contendo endereços de e-mail..." style="min-height:250px">Entre em contato conosco em suporte@toolflow.com ou vendas@toolflow.com para mais informações.
+Você também pode entrar em contato com alice@exemplo.org, bruno.silva@empresa.com.br e joana_souza@email.com.
+Duplicado: suporte@toolflow.com aparece novamente aqui.</textarea>
+          </div>
+          <div class="io-zone">
+            <label>E-mails Extraídos (<span id="emailCount">0</span> encontrados)</label>
+            <div class="output-area" id="emailOutput" style="min-height:250px"></div>
+          </div>
+        </div>
+        <div style="margin-top:1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+          <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer">
+            <input type="checkbox" id="dedupe" checked> Remover duplicados
+          </label>
+          <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer">
+            <input type="checkbox" id="sortEmails"> Ordenar alfabeticamente
+          </label>
+          <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;cursor:pointer">
+            <input type="checkbox" id="lowerEmails" checked> Minúsculas
+          </label>
+        </div>
+        <div class="action-bar">
+          <div class="btn-group">
+            <button class="btn btn-primary" onclick="extractEmails()">Extrair E-mails</button>
+            <button class="btn btn-secondary" onclick="copyToClipboard(document.getElementById('emailOutput').textContent)">📋 Copiar</button>
+            <button class="btn btn-secondary" onclick="downloadFile(document.getElementById('emailOutput').textContent, 'emails.txt')">⬇ Baixar</button>
+            <button class="btn btn-secondary" onclick="downloadFile(emailsToCSV(), 'emails.csv', 'text/csv')">📄 CSV</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('emailInput').value='';document.getElementById('emailOutput').textContent='';document.getElementById('emailCount').textContent='0'">Limpar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-sm">
+        <div class="faq-list">
+          <h2 class="mb-3">FAQ</h2>
+          <div class="faq-item"><button class="faq-question">Quais formatos de e-mail são suportados?<span class="faq-icon">+</span></button><div class="faq-answer">O extrator reconhece formatos padrão de e-mail incluindo endereços com pontos, hifens, underscores e sinais de mais. Suporta todos os TLDs comuns e domínios de múltiplas partes como .com.br.</div></div>
+          <div class="faq-item"><button class="faq-question">Posso exportar para CSV?<span class="faq-icon">+</span></button><div class="faq-answer">Sim! Clique no botão CSV para baixar os e-mails extraídos como um arquivo CSV que pode ser aberto no Excel, Google Sheets ou qualquer aplicativo de planilha.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="related-tools section-alt">
+    <div class="container">
+      <h2>Ferramentas Relacionadas</h2>
+      <div class="grid-3 mt-3">
+        <a href="json-formatter.html" class="card tool-card"><div class="tool-icon icon-dev">{ }</div><h3>Formatador JSON</h3><p>Formate e embeleze JSON.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/text/word-counter.html" class="card tool-card"><div class="tool-icon icon-text">📝</div><h3>Contador de Palavras</h3><p>Conte palavras e caracteres.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/text/case-converter.html" class="card tool-card"><div class="tool-icon icon-text">Aa</div><h3>Conversor de Caixa</h3><p>Transforme a capitalização do texto.</p><span class="card-arrow">Usar ferramenta →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    document.getElementById('header').innerHTML = renderHeader('');
+    document.getElementById('footer').innerHTML = renderFooter('');
+    initMobileMenu();
+    initHeaderScroll();
+
+    let lastEmails = [];
+
+    function extractEmails() {
+      const input = document.getElementById('emailInput').value;
+      if (!validateNotEmpty(input, 'Texto')) return;
+      const regex = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/g;
+      let emails = input.match(regex) || [];
+      if (document.getElementById('lowerEmails').checked) emails = emails.map(e => e.toLowerCase());
+      if (document.getElementById('dedupe').checked) emails = [...new Set(emails)];
+      if (document.getElementById('sortEmails').checked) emails.sort();
+      lastEmails = emails;
+      document.getElementById('emailCount').textContent = emails.length;
+      document.getElementById('emailOutput').textContent = emails.length ? emails.join('\n') : 'Nenhum endereço de e-mail encontrado.';
+    }
+
+    function emailsToCSV() {
+      return 'Email\n' + lastEmails.join('\n');
+    }
+
+    extractEmails();
+  </script>
+</body>
+</html>

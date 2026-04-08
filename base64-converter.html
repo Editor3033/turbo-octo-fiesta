@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codificador/Decodificador Base64 — Codifique e Decodifique Base64 | ToolFlow</title>
+  <meta name="description" content="Codifique texto para Base64 ou decodifique strings Base64 de volta para texto. Conversor Base64 gratuito, instantâneo e no navegador.">
+  <link rel="canonical" href="https://ferramentasgratuitas.com/tools/converters/base64-converter.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'><rect width='28' height='28' rx='6' fill='%232563eb'/><path d='M8 9h12M8 14h8M8 19h10' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="header"></div>
+
+  <section class="tool-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="/index.html">Início</a><span class="sep">/</span><a href="/categories/converter-tools.html">Conversores</a><span class="sep">/</span>Conversor Base64</div>
+      <h1>Codificador / Decodificador Base64</h1>
+      <p class="tool-description">Codifique texto para Base64 ou decodifique strings Base64 de volta para texto simples. Suporta conteúdo UTF-8.</p>
+      <span class="trust-badge">🔒 Todo o processamento acontece localmente</span>
+    </div>
+  </section>
+
+  <section class="tool-main">
+    <div class="container">
+      <div class="tool-interface">
+        <div class="tab-group mb-3">
+          <button class="tab-btn active" onclick="setMode('encode', this)">Codificar</button>
+          <button class="tab-btn" onclick="setMode('decode', this)">Decodificar</button>
+        </div>
+        <div class="io-grid">
+          <div class="io-zone">
+            <label id="b64InputLabel">Texto Simples</label>
+            <textarea id="b64Input" placeholder="Digite o texto para codificar..." style="min-height:220px">Olá, ToolFlow! 🚀 Este é um teste de codificação Base64.</textarea>
+          </div>
+          <div class="io-zone">
+            <label id="b64OutputLabel">Saída Base64</label>
+            <div class="output-area" id="b64Output" style="min-height:220px"></div>
+          </div>
+        </div>
+        <div class="action-bar">
+          <div class="btn-group">
+            <button class="btn btn-primary" onclick="convert()">Converter</button>
+            <button class="btn btn-secondary" onclick="copyToClipboard(document.getElementById('b64Output').textContent)">📋 Copiar</button>
+            <button class="btn btn-secondary" onclick="downloadFile(document.getElementById('b64Output').textContent, mode==='encode'?'codificado.txt':'decodificado.txt')">⬇ Baixar</button>
+            <button class="btn btn-secondary" onclick="swapFields()">Trocar ⇄</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('b64Input').value='';document.getElementById('b64Output').textContent=''">Limpar</button>
+          </div>
+        </div>
+        <div class="examples-section">
+          <h4>Experimente um exemplo:</h4>
+          <div class="example-chips">
+            <span class="example-chip">Olá Mundo!</span>
+            <span class="example-chip">{"api_key": "sk-1234567890"}</span>
+            <span class="example-chip">SGVsbG8gZnJvbSBUb29sRmxvdyE=</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-sm">
+        <div class="faq-list">
+          <h2 class="mb-3">FAQ</h2>
+          <div class="faq-item"><button class="faq-question">O que é Base64?<span class="faq-icon">+</span></button><div class="faq-answer">Base64 é um esquema de codificação que converte dados binários em formato de texto usando 64 caracteres ASCII. É comumente usado para codificar dados em e-mails, URLs e APIs, e para incorporar imagens ou arquivos em HTML/CSS.</div></div>
+          <div class="faq-item"><button class="faq-question">Base64 é criptografia?<span class="faq-icon">+</span></button><div class="faq-answer">Não. Base64 é uma codificação, não criptografia. É facilmente reversível e não oferece segurança. Serve para transporte de dados, não para proteção de dados. Nunca use Base64 para esconder informações sensíveis.</div></div>
+          <div class="faq-item"><button class="faq-question">Suporta Unicode/emoji?<span class="faq-icon">+</span></button><div class="faq-answer">Sim! Esta ferramenta usa codificação UTF-8 para lidar corretamente com caracteres Unicode, incluindo letras acentuadas e emoji.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="related-tools section-alt">
+    <div class="container">
+      <h2>Ferramentas Relacionadas</h2>
+      <div class="grid-3 mt-3">
+        <a href="timestamp-converter.html" class="card tool-card"><div class="tool-icon icon-converter">🕐</div><h3>Conversor de Timestamp</h3><p>Converta timestamps Unix.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/developer/json-formatter.html" class="card tool-card"><div class="tool-icon icon-dev">{ }</div><h3>Formatador JSON</h3><p>Embeleze dados JSON.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/developer/email-extractor.html" class="card tool-card"><div class="tool-icon icon-dev">📧</div><h3>Extrator de E-mails</h3><p>Extraia e-mails do texto.</p><span class="card-arrow">Usar ferramenta →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    document.getElementById('header').innerHTML = renderHeader('');
+    document.getElementById('footer').innerHTML = renderFooter('');
+    initMobileMenu();
+    initHeaderScroll();
+    initExampleChips('#b64Input');
+
+    let mode = 'encode';
+
+    function setMode(m, btn) {
+      mode = m;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (m === 'encode') {
+        document.getElementById('b64InputLabel').textContent = 'Texto Simples';
+        document.getElementById('b64OutputLabel').textContent = 'Saída Base64';
+        document.getElementById('b64Input').placeholder = 'Digite o texto para codificar...';
+      } else {
+        document.getElementById('b64InputLabel').textContent = 'Entrada Base64';
+        document.getElementById('b64OutputLabel').textContent = 'Texto Decodificado';
+        document.getElementById('b64Input').placeholder = 'Digite a string Base64 para decodificar...';
+      }
+    }
+
+    function convert() {
+      const input = document.getElementById('b64Input').value;
+      if (!validateNotEmpty(input)) return;
+      try {
+        if (mode === 'encode') {
+          // Codificação segura UTF-8
+          const encoded = btoa(unescape(encodeURIComponent(input)));
+          document.getElementById('b64Output').textContent = encoded;
+        } else {
+          const decoded = decodeURIComponent(escape(atob(input.trim())));
+          document.getElementById('b64Output').textContent = decoded;
+        }
+        document.getElementById('b64Output').style.color = '';
+      } catch (e) {
+        document.getElementById('b64Output').textContent = '❌ Erro: Entrada inválida. ' + e.message;
+        document.getElementById('b64Output').style.color = 'var(--color-error)';
+      }
+    }
+
+    function swapFields() {
+      const output = document.getElementById('b64Output').textContent;
+      if (!output || output.startsWith('❌')) return;
+      document.getElementById('b64Input').value = output;
+      setMode(mode === 'encode' ? 'decode' : 'encode',
+        document.querySelectorAll('.tab-btn')[mode === 'encode' ? 1 : 0]);
+      convert();
+    }
+
+    convert();
+  </script>
+</body>
+</html>

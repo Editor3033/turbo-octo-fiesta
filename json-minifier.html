@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minificador JSON — Comprima JSON Online | ToolFlow</title>
+  <meta name="description" content="Minifique e comprima JSON removendo espaços em branco e formatação. Ferramenta online gratuita de minificação JSON.">
+  <link rel="canonical" href="https://ferramentasgratuitas.com/tools/developer/json-minifier.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'><rect width='28' height='28' rx='6' fill='%232563eb'/><path d='M8 9h12M8 14h8M8 19h10' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="header"></div>
+
+  <section class="tool-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="/index.html">Início</a><span class="sep">/</span><a href="/categories/developer-tools.html">Ferramentas para Desenvolvedores</a><span class="sep">/</span>Minificador JSON</div>
+      <h1>Minificador JSON</h1>
+      <p class="tool-description">Comprima JSON removendo todos os espaços em branco, quebras de linha e indentação desnecessários. Reduza o tamanho do arquivo instantaneamente.</p>
+      <span class="trust-badge">⚡ Compressão instantânea no seu navegador</span>
+    </div>
+  </section>
+
+  <section class="tool-main">
+    <div class="container">
+      <div class="tool-interface">
+        <div class="io-grid">
+          <div class="io-zone">
+            <label>JSON de Entrada (formatado)</label>
+            <textarea id="minInput" placeholder="Cole seu JSON aqui..." style="min-height:280px">{
+  "name": "ToolFlow",
+  "version": "1.0",
+  "tools": [
+    {
+      "id": 1,
+      "name": "Minificador JSON"
+    },
+    {
+      "id": 2,
+      "name": "Formatador JSON"
+    }
+  ]
+}</textarea>
+          </div>
+          <div class="io-zone">
+            <label>Saída Minificada</label>
+            <div class="output-area" id="minOutput" style="min-height:280px"></div>
+          </div>
+        </div>
+        <div class="stats-row mt-2">
+          <div class="stat-item"><div class="stat-value" id="origSize">0 B</div><div class="stat-label">Original</div></div>
+          <div class="stat-item"><div class="stat-value" id="minSize">0 B</div><div class="stat-label">Minificado</div></div>
+          <div class="stat-item"><div class="stat-value" id="savings">0%</div><div class="stat-label">Economia</div></div>
+        </div>
+        <div class="action-bar">
+          <div class="btn-group">
+            <button class="btn btn-primary" onclick="minifyJSON()">Minificar JSON</button>
+            <button class="btn btn-secondary" onclick="copyToClipboard(document.getElementById('minOutput').textContent)">📋 Copiar</button>
+            <button class="btn btn-secondary" onclick="downloadFile(document.getElementById('minOutput').textContent, 'minificado.json', 'application/json')">⬇ Baixar</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('minInput').value='';document.getElementById('minOutput').textContent=''">Limpar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-sm">
+        <div class="faq-list">
+          <h2 class="mb-3">FAQ</h2>
+          <div class="faq-item"><button class="faq-question">Por que minificar JSON?<span class="faq-icon">+</span></button><div class="faq-answer">JSON minificado é menor em tamanho de arquivo, o que significa transferências de rede mais rápidas, menor uso de largura de banda e tempos de resposta de API mais rápidos. É especialmente importante para ambientes de produção e respostas de API.</div></div>
+          <div class="faq-item"><button class="faq-question">A minificação altera os dados?<span class="faq-icon">+</span></button><div class="faq-answer">Não. A minificação apenas remove espaços em branco, quebras de linha e indentação. A estrutura de dados e os valores reais permanecem completamente idênticos.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="related-tools section-alt">
+    <div class="container">
+      <h2>Ferramentas Relacionadas</h2>
+      <div class="grid-3 mt-3">
+        <a href="json-formatter.html" class="card tool-card"><div class="tool-icon icon-dev">{ }</div><h3>Formatador JSON</h3><p>Embeleze e formate JSON.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/converters/base64-converter.html" class="card tool-card"><div class="tool-icon icon-converter">🔐</div><h3>Conversor Base64</h3><p>Codifique/decodifique Base64.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/converters/timestamp-converter.html" class="card tool-card"><div class="tool-icon icon-converter">🕐</div><h3>Conversor de Timestamp</h3><p>Converta timestamps Unix.</p><span class="card-arrow">Usar ferramenta →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    document.getElementById('header').innerHTML = renderHeader('');
+    document.getElementById('footer').innerHTML = renderFooter('');
+    initMobileMenu();
+    initHeaderScroll();
+
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      return (bytes / 1024).toFixed(1) + ' KB';
+    }
+
+    function minifyJSON() {
+      const input = document.getElementById('minInput').value.trim();
+      if (!input) return;
+      try {
+        const parsed = JSON.parse(input);
+        const minified = JSON.stringify(parsed);
+        document.getElementById('minOutput').textContent = minified;
+        document.getElementById('minOutput').style.color = '';
+        const origBytes = new Blob([input]).size;
+        const minBytes = new Blob([minified]).size;
+        const saved = origBytes > 0 ? Math.round((1 - minBytes/origBytes) * 100) : 0;
+        document.getElementById('origSize').textContent = formatSize(origBytes);
+        document.getElementById('minSize').textContent = formatSize(minBytes);
+        document.getElementById('savings').textContent = saved + '%';
+      } catch(e) {
+        document.getElementById('minOutput').textContent = '❌ Erro JSON: ' + e.message;
+        document.getElementById('minOutput').style.color = 'var(--color-error)';
+      }
+    }
+
+    minifyJSON();
+  </script>
+</body>
+</html>
