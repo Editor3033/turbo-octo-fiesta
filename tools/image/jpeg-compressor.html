@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compressor JPEG — Comprima Imagens Grátis | ToolFlow</title>
+  <meta name="description" content="Comprima imagens JPEG diretamente no navegador, sem enviar arquivos ao servidor. Escolha a qualidade e baixe a imagem comprimida gratuitamente.">
+  <link rel="canonical" href="https://ferramentasgratuitas.com/tools/image/jpeg-compressor.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'><rect width='28' height='28' rx='6' fill='%232563eb'/><path d='M8 9h12M8 14h8M8 19h10' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="header"></div>
+
+  <section class="tool-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="/index.html">Início</a><span class="sep">/</span><a href="/categories/image-tools.html">Ferramentas de Imagem</a><span class="sep">/</span>Compressor JPEG</div>
+      <h1>Compressor JPEG</h1>
+      <p class="tool-description">Comprima imagens JPEG escolhendo o nível de qualidade desejado. Veja o tamanho antes e depois e baixe o resultado instantaneamente.</p>
+      <span class="trust-badge">🔒 Processado inteiramente no seu navegador — nenhum arquivo é enviado</span>
+    </div>
+  </section>
+
+  <section class="tool-main">
+    <div class="container">
+      <div class="tool-interface">
+
+        <div class="io-grid">
+          <!-- Coluna esquerda: upload e controles -->
+          <div class="io-zone">
+            <label>Imagem de Entrada</label>
+            <div id="dropZone" style="border:2px dashed var(--color-border);border-radius:var(--radius-md);padding:2.5rem 1.5rem;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;background:var(--color-surface)">
+              <div id="dropPrompt">
+                <div style="font-size:2.5rem;margin-bottom:0.75rem">🖼️</div>
+                <p style="font-weight:600;margin-bottom:0.25rem">Arraste uma imagem JPEG aqui</p>
+                <p style="font-size:0.85rem;color:var(--color-text-secondary);margin-bottom:1rem">ou clique para selecionar um arquivo</p>
+                <button class="btn btn-secondary" type="button" onclick="document.getElementById('fileInput').click()">Escolher Arquivo</button>
+              </div>
+              <input type="file" id="fileInput" accept="image/jpeg,image/jpg" style="display:none">
+            </div>
+
+            <div id="inputInfo" style="display:none;margin-top:1rem">
+              <div style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-sm)">
+                <span style="font-size:1.5rem">📄</span>
+                <div style="flex:1;min-width:0">
+                  <p id="inputFileName" style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0"></p>
+                  <p id="inputFileSize" style="font-size:0.8rem;color:var(--color-text-secondary);margin:0"></p>
+                </div>
+                <button class="btn btn-secondary" type="button" onclick="resetTool()" style="flex-shrink:0;padding:0.25rem 0.75rem;font-size:0.8rem">Trocar</button>
+              </div>
+            </div>
+
+            <div style="margin-top:1.5rem">
+              <label style="display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;font-weight:600;color:var(--color-text-secondary);margin-bottom:0.5rem">
+                <span>Qualidade</span>
+                <span id="qualityValue" style="font-size:1rem;font-weight:700;color:var(--color-primary)">80</span>
+              </label>
+              <input type="range" id="qualitySlider" min="1" max="100" value="80" style="width:100%;accent-color:var(--color-primary)">
+              <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--color-text-secondary);margin-top:0.25rem">
+                <span>1 — Menor tamanho</span>
+                <span>100 — Máxima qualidade</span>
+              </div>
+            </div>
+
+            <div class="mt-2">
+              <button class="btn btn-primary btn-lg" onclick="compressImage()" style="width:100%" id="compressBtn" disabled>Comprimir Imagem</button>
+            </div>
+          </div>
+
+          <!-- Coluna direita: resultado -->
+          <div class="io-zone">
+            <label>Resultado</label>
+            <div id="outputPlaceholder" style="border:2px dashed var(--color-border);border-radius:var(--radius-md);padding:2.5rem 1.5rem;text-align:center;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--color-surface)">
+              <div style="font-size:2.5rem;margin-bottom:0.75rem;opacity:0.4">📥</div>
+              <p style="color:var(--color-text-secondary);font-size:0.9rem">A imagem comprimida aparecerá aqui</p>
+            </div>
+
+            <div id="outputResult" style="display:none">
+              <div style="border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden">
+                <img id="outputPreview" alt="Pré-visualização da imagem comprimida" style="width:100%;display:block;max-height:300px;object-fit:contain;background:#f0f0f0">
+              </div>
+
+              <div id="statsRow" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;margin-top:1rem">
+                <div style="text-align:center;padding:0.75rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-sm)">
+                  <p style="font-size:0.72rem;color:var(--color-text-secondary);margin:0 0 0.25rem;text-transform:uppercase;letter-spacing:0.04em">Original</p>
+                  <p id="statOriginal" style="font-weight:700;font-size:1rem;margin:0"></p>
+                </div>
+                <div style="text-align:center;padding:0.75rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-sm)">
+                  <p style="font-size:0.72rem;color:var(--color-text-secondary);margin:0 0 0.25rem;text-transform:uppercase;letter-spacing:0.04em">Comprimido</p>
+                  <p id="statCompressed" style="font-weight:700;font-size:1rem;margin:0"></p>
+                </div>
+                <div style="text-align:center;padding:0.75rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-sm)">
+                  <p style="font-size:0.72rem;color:var(--color-text-secondary);margin:0 0 0.25rem;text-transform:uppercase;letter-spacing:0.04em">Redução</p>
+                  <p id="statReduction" style="font-weight:700;font-size:1rem;margin:0;color:var(--color-primary)"></p>
+                </div>
+              </div>
+
+              <div class="btn-group mt-2" style="justify-content:center">
+                <button class="btn btn-primary" onclick="downloadCompressed()">⬇ Baixar JPEG</button>
+                <button class="btn btn-secondary" onclick="compressImage()">🔄 Reaplicar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="examples-section">
+          <h4>Qualidades sugeridas:</h4>
+          <div class="example-chips">
+            <span class="example-chip" data-quality="95">⭐ Alta qualidade (95)</span>
+            <span class="example-chip" data-quality="80">✅ Equilibrado (80)</span>
+            <span class="example-chip" data-quality="60">📦 Compacto (60)</span>
+            <span class="example-chip" data-quality="40">🗜️ Mínimo (40)</span>
+          </div>
+        </div>
+
+        <div class="section-sm">
+          <div class="faq-list">
+            <h2 class="mb-3">Perguntas Frequentes</h2>
+            <div class="faq-item">
+              <button class="faq-question">Como funciona a compressão JPEG?<span class="faq-icon">+</span></button>
+              <div class="faq-answer">O formato JPEG usa um algoritmo de compressão com perda: ao reduzir a qualidade, detalhes de alta frequência (bordas finas, texturas complexas) são descartados, diminuindo o tamanho do arquivo. Esta ferramenta usa o elemento Canvas do navegador para recodificar a imagem com o nível de qualidade escolhido — tudo localmente, sem upload.</div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">Qual qualidade devo escolher?<span class="faq-icon">+</span></button>
+              <div class="faq-answer">Para uso na web, valores entre 70 e 85 oferecem ótimo equilíbrio entre tamanho e qualidade visual. Para impressão ou edição posterior, prefira 90 ou mais. Para thumbnails e miniaturas onde o tamanho importa mais, valores entre 40 e 60 costumam ser suficientes.</div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">Minha imagem fica salva em algum servidor?<span class="faq-icon">+</span></button>
+              <div class="faq-answer">Não. Todo o processamento acontece diretamente no seu navegador usando a API Canvas do HTML5. Nenhum dado ou arquivo é enviado para nenhum servidor. Sua privacidade está completamente protegida.</div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">Posso comprimir arquivos PNG ou WebP aqui?<span class="faq-icon">+</span></button>
+              <div class="faq-answer">Esta ferramenta aceita arquivos JPEG/JPG como entrada e gera a saída também em JPEG. Para converter PNG ou WebP para JPEG com compressão, você pode usar nossa ferramenta de conversão de imagens. Note que converter PNG para JPEG pode eliminar a transparência.</div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">Por que o arquivo comprimido às vezes fica maior?<span class="faq-icon">+</span></button>
+              <div class="faq-answer">Isso pode ocorrer quando a imagem original já foi salva com qualidade baixa. Ao reprocessá-la com qualidade alta (próxima de 100), o novo arquivo pode ser maior do que o original. Se isso acontecer, experimente reduzir a qualidade ou use a imagem original diretamente.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="related-tools section-alt">
+    <div class="container">
+      <h2>Ferramentas Relacionadas</h2>
+      <div class="grid-3 mt-3">
+        <a href="/tools/generators/qr-code-generator.html" class="card tool-card"><div class="tool-icon icon-generator">📷</div><h3>Gerador de QR Code</h3><p>Crie QR codes para URLs, texto e muito mais.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/tools/generators/color-palette-generator.html" class="card tool-card"><div class="tool-icon icon-generator">🎨</div><h3>Gerador de Paleta de Cores</h3><p>Crie paletas de cores harmoniosas para seus projetos.</p><span class="card-arrow">Usar ferramenta →</span></a>
+        <a href="/tools/converters/base64-converter.html" class="card tool-card"><div class="tool-icon icon-converter">🔐</div><h3>Conversor Base64</h3><p>Codifique e decodifique dados em Base64.</p><span class="card-arrow">Usar ferramenta →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/components.js"></script>
+  <script>
+    document.getElementById('header').innerHTML = renderHeader('');
+    document.getElementById('footer').innerHTML = renderFooter('');
+    initMobileMenu();
+    initHeaderScroll();
+
+    // ── State ──────────────────────────────────────────────────────────────────
+    let originalFile = null;
+    let originalSize = 0;
+    let compressedBlob = null;
+
+    // ── Quality slider ─────────────────────────────────────────────────────────
+    const slider = document.getElementById('qualitySlider');
+    const qualityLabel = document.getElementById('qualityValue');
+
+    slider.addEventListener('input', () => {
+      qualityLabel.textContent = slider.value;
+    });
+
+    // Quality preset chips
+    document.querySelectorAll('.example-chip[data-quality]').forEach(chip => {
+      chip.addEventListener('click', () => {
+        slider.value = chip.dataset.quality;
+        qualityLabel.textContent = chip.dataset.quality;
+        if (originalFile) compressImage();
+      });
+    });
+
+    // ── Drop zone ──────────────────────────────────────────────────────────────
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+
+    dropZone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropZone.style.borderColor = 'var(--color-primary)';
+      dropZone.style.background = 'var(--color-primary-light, #eff6ff)';
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.style.borderColor = 'var(--color-border)';
+      dropZone.style.background = 'var(--color-surface)';
+    });
+
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.style.borderColor = 'var(--color-border)';
+      dropZone.style.background = 'var(--color-surface)';
+      const file = e.dataTransfer.files[0];
+      if (file) handleFile(file);
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files[0]) handleFile(fileInput.files[0]);
+    });
+
+    // ── File handling ──────────────────────────────────────────────────────────
+    function handleFile(file) {
+      if (!file.type.match(/image\/(jpeg|jpg)/)) {
+        ToastManager.error('Por favor, selecione um arquivo JPEG ou JPG.');
+        return;
+      }
+
+      originalFile = file;
+      originalSize = file.size;
+
+      document.getElementById('inputFileName').textContent = file.name;
+      document.getElementById('inputFileSize').textContent = formatBytes(file.size);
+      document.getElementById('inputInfo').style.display = 'block';
+      document.getElementById('dropPrompt').style.display = 'none';
+      document.getElementById('compressBtn').disabled = false;
+
+      // Reset output
+      document.getElementById('outputResult').style.display = 'none';
+      document.getElementById('outputPlaceholder').style.display = 'flex';
+      compressedBlob = null;
+    }
+
+    function resetTool() {
+      originalFile = null;
+      originalSize = 0;
+      compressedBlob = null;
+      fileInput.value = '';
+      document.getElementById('inputInfo').style.display = 'none';
+      document.getElementById('dropPrompt').style.display = 'block';
+      document.getElementById('compressBtn').disabled = true;
+      document.getElementById('outputResult').style.display = 'none';
+      document.getElementById('outputPlaceholder').style.display = 'flex';
+    }
+
+    // ── Compression ────────────────────────────────────────────────────────────
+    function compressImage() {
+      if (!originalFile) {
+        ToastManager.error('Selecione uma imagem primeiro.');
+        return;
+      }
+
+      const quality = parseInt(slider.value) / 100;
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+
+          canvas.toBlob(function(blob) {
+            if (!blob) {
+              ToastManager.error('Erro ao comprimir a imagem. Tente novamente.');
+              return;
+            }
+
+            compressedBlob = blob;
+
+            // Show preview
+            const url = URL.createObjectURL(blob);
+            document.getElementById('outputPreview').src = url;
+
+            // Show stats
+            document.getElementById('statOriginal').textContent = formatBytes(originalSize);
+            document.getElementById('statCompressed').textContent = formatBytes(blob.size);
+
+            const reduction = ((1 - blob.size / originalSize) * 100);
+            const reductionText = reduction > 0
+              ? '-' + reduction.toFixed(1) + '%'
+              : '+' + Math.abs(reduction).toFixed(1) + '%';
+            document.getElementById('statReduction').textContent = reductionText;
+            document.getElementById('statReduction').style.color = reduction > 0
+              ? 'var(--color-success, #16a34a)'
+              : 'var(--color-danger, #dc2626)';
+
+            document.getElementById('outputPlaceholder').style.display = 'none';
+            document.getElementById('outputResult').style.display = 'block';
+
+            ToastManager.success('Imagem comprimida com sucesso!');
+          }, 'image/jpeg', quality);
+        };
+
+        img.onerror = function() {
+          ToastManager.error('Não foi possível carregar a imagem.');
+        };
+
+        img.src = e.target.result;
+      };
+
+      reader.readAsDataURL(originalFile);
+    }
+
+    // ── Download ───────────────────────────────────────────────────────────────
+    function downloadCompressed() {
+      if (!compressedBlob) {
+        ToastManager.error('Comprima uma imagem primeiro.');
+        return;
+      }
+      const baseName = (originalFile ? originalFile.name.replace(/\.[^.]+$/, '') : 'imagem') + '-comprimido.jpg';
+      downloadBlobFile(compressedBlob, baseName);
+    }
+
+    // ── Helpers ────────────────────────────────────────────────────────────────
+    function formatBytes(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+  </script>
+</body>
+</html>
